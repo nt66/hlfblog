@@ -1,5 +1,5 @@
 ---
-title: Hello WorldHello World!!!!!!
+title: Hello World Hello World!!!!!!
 ---
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
@@ -7,7 +7,7 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 
 ### Create a new post
 
-<!-- ``` bash
+``` bash
 $ hexo new "My New Post"
 ```
 
@@ -35,4 +35,4 @@ More info: [Generating](https://hexo.io/docs/generating.html)
 $ hexo deploy
 ```
 
-More info: [Deployment](https://hexo.io/docs/one-command-deployment.html) -->
+More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
