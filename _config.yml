@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: HLF Blog
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
+title: 灵峯 Blog
+subtitle: 离地半尺<br/>不为蝼蚁不为神
+description: hualingfeng的blog
+keywords: hualingfeng 华凌锋 灵峯 博客 技术 github
+author: hualingfeng
 language: zh-Hans
 timezone: ''
 
