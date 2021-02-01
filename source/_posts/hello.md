@@ -9,5 +9,5 @@ tags:
 
 新事物总是然人充满期待，期待在此处发生不一样的事。
 
-![生日](hello/birth.jpg '恭喜破壳')
+{% asset_img birth.jpg '恭喜破壳' %}
 
