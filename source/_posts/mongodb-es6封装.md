@@ -152,6 +152,10 @@ node操作mongodb过程中，一套动作下来颇为繁琐。如何化繁为简
     console.log('userInfo', userInfo);
     res.send('user information:<br/>' + JSON.stringify(userInfo))
   });
+
+  app.listen(3000, () => {
+    console.log('listening port on 3000');
+  });
 ```
 </br>
 </br>
