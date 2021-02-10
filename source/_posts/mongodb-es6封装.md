@@ -1,5 +1,5 @@
 ---
-title: Mongodb 之 ES6封装
+title: Mongodb操作 之 ES6封装
 date: 2021-02-03 18:59:54
 tags: ['mongodb','node','express']
 ---
