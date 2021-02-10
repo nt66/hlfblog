@@ -3,7 +3,7 @@ title: Mongodb操作 之 ES5封装
 date: 2021-02-10 22:39:54
 tags: ['mongodb','node','express','es5']
 ---
-继mongodb ES6封装之后，突然想着用ES5的返祖写法去实现一下^_^。两者的主要区别主要是前者用的promise方式，后者用的callback回调方式去。让我们一起温故一下吧
+继mongodb ES6封装之后，突然想着用ES5的返祖写法去实现一下^_^。其实原理差不多，区别主要是前者用的promise，后者用的callback。仅此而已。
 
 {% asset_img es5.png '返祖' %}
 
