@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="mongodb,node,express,es5," />
 
 
 
@@ -79,20 +79,23 @@
 
 
 
-<meta name="description" content="破壳日2021年2月3日，博客诞生日，也是我生日，值得纪念的日子。 新事物总是然人充满期待，期待在此处发生不一样的事。">
+<meta name="description" content="继mongodb ES6封装之后，突然想着用ES5的返祖写法去实现一下^_^。两者的主要区别主要是前者用的promise方式，后者用的callback回调方式去。让我们一起温故一下吧">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hello">
-<meta property="og:url" content="https://nt66.github.io/hlfblog/2021/02/03/hello/index.html">
+<meta property="og:title" content="Mongodb操作 之 ES5封装">
+<meta property="og:url" content="https://nt66.github.io/hlfblog/2021/02/10/mongodb-es5%E5%B0%81%E8%A3%85/index.html">
 <meta property="og:site_name" content="灵峯 Blog">
-<meta property="og:description" content="破壳日2021年2月3日，博客诞生日，也是我生日，值得纪念的日子。 新事物总是然人充满期待，期待在此处发生不一样的事。">
+<meta property="og:description" content="继mongodb ES6封装之后，突然想着用ES5的返祖写法去实现一下^_^。两者的主要区别主要是前者用的promise方式，后者用的callback回调方式去。让我们一起温故一下吧">
 <meta property="og:locale">
-<meta property="og:image" content="https://nt66.github.io/hlfblog/2021/02/03/hello/birth.jpg">
-<meta property="article:published_time" content="2021-02-03T09:54:57.000Z">
-<meta property="article:modified_time" content="2021-02-10T14:22:22.867Z">
+<meta property="og:image" content="https://nt66.github.io/hlfblog/2021/02/10/mongodb-es5%E5%B0%81%E8%A3%85/es5.png">
+<meta property="article:published_time" content="2021-02-10T14:39:54.000Z">
+<meta property="article:modified_time" content="2021-02-10T14:41:34.238Z">
 <meta property="article:author" content="hualingfeng">
-<meta property="article:tag" content="hualingfeng 华凌锋 灵峯 博客 技术 github">
+<meta property="article:tag" content="mongodb">
+<meta property="article:tag" content="node">
+<meta property="article:tag" content="express">
+<meta property="article:tag" content="es5">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://nt66.github.io/hlfblog/2021/02/03/hello/birth.jpg">
+<meta name="twitter:image" content="https://nt66.github.io/hlfblog/2021/02/10/mongodb-es5%E5%B0%81%E8%A3%85/es5.png">
 
 
 
@@ -122,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://nt66.github.io/hlfblog/2021/02/03/hello/"/>
+  <link rel="canonical" href="https://nt66.github.io/hlfblog/2021/02/10/mongodb-es5封装/"/>
 
 
 
 
 
-  <title>hello | 灵峯 Blog</title>
+  <title>Mongodb操作 之 ES5封装 | 灵峯 Blog</title>
   
 
 
@@ -255,7 +258,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/02/03/hello/">
+    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/02/10/mongodb-es5%E5%B0%81%E8%A3%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -272,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">hello</h1>
+          <h1 class="post-title" itemprop="name headline">Mongodb操作 之 ES5封装</h1>
         
 
         <div class="post-meta">
@@ -284,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-03T17:54:57+08:00">
-                2021-02-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-10T22:39:54+08:00">
+                2021-02-10
               </time>
             
 
@@ -322,9 +325,20 @@
       
 
       
-        <h3 id="破壳日"><a href="#破壳日" class="headerlink" title="破壳日"></a>破壳日</h3><p>2021年2月3日，博客诞生日，也是我生日，值得纪念的日子。</p>
-<p>新事物总是然人充满期待，期待在此处发生不一样的事。</p>
-<img src="/hlfblog/2021/02/03/hello/birth.jpg" class title="恭喜破壳">
+        <p>继mongodb ES6封装之后，突然想着用ES5的返祖写法去实现一下^_^。两者的主要区别主要是前者用的promise方式，后者用的callback回调方式去。让我们一起温故一下吧</p>
+<img src="/hlfblog/2021/02/10/mongodb-es5%E5%B0%81%E8%A3%85/es5.png" class title="返祖">
+
+<a id="more"></a>
+<h1 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db                <span class="comment">//db封装类</span></span><br><span class="line">  |--index.js    </span><br><span class="line">app.js           <span class="comment">//入口文件</span></span><br><span class="line">node_modules</span><br><span class="line">package.json</span><br></pre></td></tr></table></figure>
+<br>
+<!--more-->
+
+<h1 id="db-index-js封装"><a href="#db-index-js封装" class="headerlink" title="db/index.js封装"></a>db/index.js封装</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * mongodb crud callback封装</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> &#123; MongoClient &#125; = <span class="built_in">require</span>(<span class="string">&#x27;mongodb&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> URL = <span class="string">&#x27;mongodb://127.0.0.1:27017/&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> DBNAME = <span class="string">&#x27;tongtang&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 连接数据库</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;String&#125;</span> </span>collectionName 回调函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> dbConnect = <span class="function">(<span class="params">callback</span>) =&gt;</span>&#123;</span><br><span class="line">  MongoClient.connect(URL,<span class="function">(<span class="params">err,client</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;mongodb connect err&#x27;</span>);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> db = client.db(DBNAME);</span><br><span class="line">    callback(db);</span><br><span class="line">    client.close();</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查找</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> </span>collectionName 表名</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>json 查找条件</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">exports</span>.find = <span class="function">(<span class="params">collectionName, json, callback</span>)=&gt;</span>&#123;</span><br><span class="line">  dbConnect(<span class="function">(<span class="params">db</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> collection = db.collection(collectionName);</span><br><span class="line">    collection.find(json).toArray(<span class="function">(<span class="params">err,data</span>)=&gt;</span>&#123;</span><br><span class="line">      callback(err,data);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 修改</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> </span>collectionName 表名</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>json1 查找条件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>json1 更新数据</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">exports</span>.update = <span class="function">(<span class="params">collectionName, json1, json2, callback</span>)=&gt;</span>&#123;</span><br><span class="line">  dbConnect(<span class="function">(<span class="params">db</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> collection = db.collection(collectionName);</span><br><span class="line">    collection.updateOne(json1, &#123; <span class="attr">$set</span>: json2 &#125;, <span class="function">(<span class="params">err,result</span>)=&gt;</span>&#123;</span><br><span class="line">      callback(err,result);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+<br>
+
+
+
 
       
     </div>
@@ -340,6 +354,18 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/hlfblog/tags/mongodb/" rel="tag"># mongodb</a>
+          
+            <a href="/hlfblog/tags/node/" rel="tag"># node</a>
+          
+            <a href="/hlfblog/tags/express/" rel="tag"># express</a>
+          
+            <a href="/hlfblog/tags/es5/" rel="tag"># es5</a>
+          
+        </div>
+      
 
       
       
@@ -349,15 +375,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/hlfblog/2021/02/03/mongodb-es6%E5%B0%81%E8%A3%85/" rel="next" title="Mongodb操作 之 ES6封装">
+                <i class="fa fa-chevron-left"></i> Mongodb操作 之 ES6封装
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hlfblog/2021/02/03/mongodb-es6%E5%B0%81%E8%A3%85/" rel="prev" title="Mongodb操作 之 ES6封装">
-                Mongodb操作 之 ES6封装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -484,7 +510,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%B4%E5%A3%B3%E6%97%A5"><span class="nav-number">1.</span> <span class="nav-text">破壳日</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">文件目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#db-index-js%E5%B0%81%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">db&#x2F;index.js封装</span></a></li></ol></div>
             
 
           </div>
