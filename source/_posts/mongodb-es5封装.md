@@ -26,7 +26,7 @@ tags: ['mongodb','node','express','es5']
  */
 const { MongoClient } = require('mongodb');
 const URL = 'mongodb://127.0.0.1:27017/';
-const DBNAME = 'tongtang';
+const DBNAME = 'dt';
 
 /**
  * 连接数据库

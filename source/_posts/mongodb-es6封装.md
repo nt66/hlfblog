@@ -25,7 +25,7 @@ node操作mongodb过程中，一套动作下来颇为繁琐。如何化繁为简
    */
   const MongoClient = require('mongodb').MongoClient;
   const URL = 'mongodb://127.0.0.1:27017/';
-  const DBNAME = 'tongtang';
+  const DBNAME = 'dt';
 
   class DB {
     // 单例模式
