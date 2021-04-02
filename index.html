@@ -252,6 +252,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/04/02/webpack-antd-cssmodules%E6%B7%B7%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hlfblog/images/avatar3.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="灵峯 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hlfblog/2021/04/02/webpack-antd-cssmodules%E6%B7%B7%E7%94%A8/" itemprop="url">webpack-antd-cssmodules混用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-02T15:35:09+08:00">
+                2021-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>年前立了个flag，说是一周一篇博客。。。真是啪啪打脸。知耻而后勇，记录一下今天遇到的小问题吧</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>webpack做开发和生产构建之时，常会用到cssModules。使用cssModules最大的好处是：</p>
+<p><strong>样式的作用域隔离，避免了css命名冲突的问题</strong></p>
+<p>这确实是多人协同开发的福音。但是，当我们配置了cssModules之后，一些第三方类库的样式文件就会解析失败。。。。如antd</p>
+<h1 id="事情经过"><a href="#事情经过" class="headerlink" title="事情经过"></a>事情经过</h1><p>今天新开了一个ts项目框架。引入antd组件的时候发现样式不生效</p>
+<img src="/hlfblog/2021/04/02/webpack-antd-cssmodules%E6%B7%B7%E7%94%A8/1.jpg" class>
+
+<h2 id="planA"><a href="#planA" class="headerlink" title="planA"></a>planA</h2><p>入口less文件中引入antd样式文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">import</span> <span class="string">&#x27;~antd/dist/antd.css&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>然鹅 not work again…<br><br></p>
+<h2 id="planB"><a href="#planB" class="headerlink" title="planB"></a>planB</h2><p>配置webpack</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">        test: [<span class="regexp">/\.ts$/</span>, <span class="regexp">/\.tsx$/</span>],</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        use: [</span><br><span class="line">          &#123;</span><br><span class="line">            loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">            options: &#123;</span><br><span class="line">              presets: [</span><br><span class="line">                <span class="string">&#x27;@babel/preset-env&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;@babel/preset-react&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;@babel/preset-typescript&#x27;</span></span><br><span class="line">              ],</span><br><span class="line">              plugins: [</span><br><span class="line">                [</span><br><span class="line">                  <span class="string">&#x27;import&#x27;</span>, &#123; </span><br><span class="line">                    libraryName: <span class="string">&#x27;antd&#x27;</span>, </span><br><span class="line">                    libraryDirectory: <span class="string">&#x27;es&#x27;</span>, </span><br><span class="line">                    style: <span class="string">&#x27;css&#x27;</span> </span><br><span class="line">                  &#125;</span><br><span class="line">                ],</span><br><span class="line">                [<span class="string">&quot;@babel/plugin-proposal-class-properties&quot;</span>]</span><br><span class="line">              ]</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;]</span><br><span class="line">      &#125;,</span><br></pre></td></tr></table></figure>
+<p>not work again and again…… -_-!!!</p>
+<h2 id="打开页面控制台"><a href="#打开页面控制台" class="headerlink" title="打开页面控制台"></a>打开页面控制台</h2><p>antd的样式命名和别的不一样啊  </p>
+<img src="/hlfblog/2021/04/02/webpack-antd-cssmodules%E6%B7%B7%E7%94%A8/2.jpg" class>  
+<p>推断：<font face="楷体" size="4" color="Red">可能是cssModule和antd样式冲突了</font>  </p>
+<h2 id="解决方案：-webpack-cssModules配置加过滤"><a href="#解决方案：-webpack-cssModules配置加过滤" class="headerlink" title="解决方案： webpack cssModules配置加过滤"></a>解决方案： <font face="楷体" size="4" color="Red"><strong>webpack cssModules配置加过滤</strong></font></h2><pre><code class="javascript">&#123;
+        test: [/\.css$/, /\.less$/],
+        exclude: [/[\\/]node_modules[\\/].*antd/], // 这里做个判断
+        use: [
+          &#39;style-loader&#39;,
+          &#123;
+            loader: &#39;css-loader&#39;,
+            options: &#123;
+              modules: true
+            &#125;
+          &#125;,
+          &#123;
+            loader: &#39;postcss-loader&#39;,
+            options: &#123;
+              ident: &#39;postcss&#39;,
+              plugins: (loader) =&gt; [
+                require(&#39;autoprefixer&#39;)()
+              ],
+            &#125;
+          &#125;,
+          &#123;
+            loader: &#39;less-loader&#39;,
+          &#125;,
+        ]
+      &#125;
+</code></pre>
+<br>
+
+
+<img src="/hlfblog/2021/04/02/webpack-antd-cssmodules%E6%B7%B7%E7%94%A8/3.jpg" class title="打完收工~~">  
+
+
+
+
+
+
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/02/10/mongodb-es5%E5%B0%81%E8%A3%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -662,7 +834,7 @@
               
                 <a href="/hlfblog/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -675,7 +847,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/hlfblog/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
