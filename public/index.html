@@ -252,6 +252,336 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/06/12/Object.create%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hlfblog/images/avatar3.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="灵峯 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hlfblog/2021/06/12/Object.create%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">Object.create和对象字面量的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-12T22:52:00+08:00">
+                2021-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <br>
+
+<p>平时我们写代码时经常使用对象，用的最多的就是字面量方法创建如： const obj = {}，最近在整理JS继承方式时发现 Object.create() 也可以创建对象，那这两种方式有差别吗？</p>
+<br>
+
+<h2 id="对象字面量方式创建对象"><a href="#对象字面量方式创建对象" class="headerlink" title="对象字面量方式创建对象"></a>对象字面量方式创建对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> objA = &#123;&#125;;</span><br><span class="line">objA.name = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">objA.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> !`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">objA.sayName();</span><br><span class="line"><span class="built_in">console</span>.log(objA.__proto__ === <span class="built_in">Object</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(objA <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="回顾一下new一个对象其实做了以下三步："><a href="#回顾一下new一个对象其实做了以下三步：" class="headerlink" title="回顾一下new一个对象其实做了以下三步："></a>回顾一下new一个对象其实做了以下三步：</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>(); <span class="comment">// 创建一个空对象</span></span><br><span class="line">obj.__proto__ = F.prototype; <span class="comment">// obj的__proto__指向构造函数的prototype</span></span><br><span class="line"><span class="keyword">var</span> result = F.call(obj); <span class="comment">// 把构造函数的this指向obj，并执行构造函数</span></span><br></pre></td></tr></table></figure>
+<h3 id="这里重点：obj的-proto-指向构造函数的prototype"><a href="#这里重点：obj的-proto-指向构造函数的prototype" class="headerlink" title=" 这里重点：obj的__proto__指向构造函数的prototype  "></a><font color="red"> 这里重点：obj的__proto__指向构造函数的prototype  </font></h3><br>
+<br>
+
+<h1 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create()"></a>Object.create()</h1><blockquote>
+<p>Object.create()方法创建一个新对象，使用<font color="red" size="4">已有的对象</font>来提供新创建的对象的<strong>proto</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  isHuman: <span class="literal">false</span>,</span><br><span class="line">  printIntroduction: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span>. Am I human? <span class="subst">$&#123;<span class="built_in">this</span>.isHuman&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> me = <span class="built_in">Object</span>.create(person); <span class="comment">// me.__proto__ === person</span></span><br><span class="line">me.name = <span class="string">&quot;Matthew&quot;</span>;</span><br><span class="line">me.isHuman = <span class="literal">true</span>; <span class="comment">// 继承的属性可以被重写</span></span><br><span class="line">me.printIntroduction(); <span class="comment">// My name is Matthew. Am I human? true</span></span><br></pre></td></tr></table></figure>
+<h3 id="这里的重点在于me-proto-person-也就是说me对象的内置原型直接指向了person"><a href="#这里的重点在于me-proto-person-也就是说me对象的内置原型直接指向了person" class="headerlink" title=" 这里的重点在于me.proto === person 也就是说me对象的内置原型直接指向了person"></a><font color="red"> 这里的重点在于me.<strong>proto</strong> === person </font>也就是说me对象的内置原型直接指向了person</h3><br>
+
+<h2 id="再来看看第二个参数"><a href="#再来看看第二个参数" class="headerlink" title="再来看看第二个参数"></a>再来看看第二个参数</h2><blockquote>
+<p> Object.create(proto,[propertiesObject])</p>
+</blockquote>
+<ul>
+<li>proto必填参数，是新对象的原型对象，如上面代码里新对象me的__proto__指向person。注意，如果这个参数是null，那新对象就彻彻底底是个空对象，没有继承Object.prototype上的任何属性和方法，如hasOwnProperty()、toString()等。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line"><span class="built_in">console</span>.dir(a); <span class="comment">// &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(a.__proto__); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(a.__proto__ === <span class="built_in">Object</span>.prototype); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(a <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">// false 没有继承`Object.prototype`上的任何属性和方法，所以原型链上不会出现Object</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>propertiesObject是可选参数，指定要添加到新对象上的可枚举的属性</li>
+</ul>
+<br>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cc = <span class="built_in">Object</span>.create(&#123;<span class="attr">b</span>: <span class="number">1</span>&#125;, &#123;</span><br><span class="line">    a: &#123;</span><br><span class="line">        value: <span class="number">3</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(cc); <span class="comment">// &#123;a: 3&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(cc.__proto__); <span class="comment">// &#123;b: 1&#125; 新对象cc的__proto__指向&#123;b: 1&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(cc.__proto__ === <span class="built_in">Object</span>.protorype); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>可以看出第二个参数是cc的对象，而b是cc继承的对象</p>
+<img src="/hlfblog/2021/06/12/Object.create%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB/assets1.png" class>
+<br>
+
+<h1 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h1><ul>
+<li>对象字面量创建的对象是Object的实例，原型指向Object.prototype。</li>
+<li>Object.create(arg, pro)创建的对象的原型取决于arg，arg为null，新对象是空对象，没有原型，不继承任何对象；arg为指定对象，新对象的原型指向指定对象。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/04/02/webpack-antd-cssmodules%E6%B7%B7%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hlfblog/images/avatar3.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="灵峯 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hlfblog/2021/04/02/webpack-antd-cssmodules%E6%B7%B7%E7%94%A8/" itemprop="url">webpack-antd-cssmodules混用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-02T15:35:09+08:00">
+                2021-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>年前立了个flag，说是一周一篇博客。。。真是啪啪打脸。知耻而后勇，记录一下今天遇到的小问题吧</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>webpack做开发和生产构建之时，常会用到cssModules。使用cssModules最大的好处是：</p>
+<p><strong>样式的作用域隔离，避免了css命名冲突的问题</strong></p>
+<p>这确实是多人协同开发的福音。但是，当我们配置了cssModules之后，一些第三方类库的样式文件就会解析失败。。。。如antd</p>
+<h1 id="事情经过"><a href="#事情经过" class="headerlink" title="事情经过"></a>事情经过</h1><p>今天新开了一个ts项目框架。引入antd组件的时候发现样式不生效</p>
+<img src="/hlfblog/2021/04/02/webpack-antd-cssmodules%E6%B7%B7%E7%94%A8/1.jpg" class>
+
+<h2 id="planA"><a href="#planA" class="headerlink" title="planA"></a>planA</h2><p>入口less文件中引入antd样式文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">import</span> <span class="string">&#x27;~antd/dist/antd.css&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>然鹅 not work again…<br><br></p>
+<h2 id="planB"><a href="#planB" class="headerlink" title="planB"></a>planB</h2><p>配置webpack</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">        test: [<span class="regexp">/\.ts$/</span>, <span class="regexp">/\.tsx$/</span>],</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        use: [</span><br><span class="line">          &#123;</span><br><span class="line">            loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">            options: &#123;</span><br><span class="line">              presets: [</span><br><span class="line">                <span class="string">&#x27;@babel/preset-env&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;@babel/preset-react&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;@babel/preset-typescript&#x27;</span></span><br><span class="line">              ],</span><br><span class="line">              plugins: [</span><br><span class="line">                [</span><br><span class="line">                  <span class="string">&#x27;import&#x27;</span>, &#123; </span><br><span class="line">                    libraryName: <span class="string">&#x27;antd&#x27;</span>, </span><br><span class="line">                    libraryDirectory: <span class="string">&#x27;es&#x27;</span>, </span><br><span class="line">                    style: <span class="string">&#x27;css&#x27;</span> </span><br><span class="line">                  &#125;</span><br><span class="line">                ],</span><br><span class="line">                [<span class="string">&quot;@babel/plugin-proposal-class-properties&quot;</span>]</span><br><span class="line">              ]</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;]</span><br><span class="line">      &#125;,</span><br></pre></td></tr></table></figure>
+<p>not work again and again…… -_-!!!</p>
+<h2 id="打开页面控制台"><a href="#打开页面控制台" class="headerlink" title="打开页面控制台"></a>打开页面控制台</h2><p>antd的样式命名和别的不一样啊  </p>
+<img src="/hlfblog/2021/04/02/webpack-antd-cssmodules%E6%B7%B7%E7%94%A8/2.jpg" class>  
+<p>推断：<font face="楷体" size="4" color="Red">可能是cssModule和antd样式冲突了</font>  </p>
+<h2 id="解决方案：-webpack-cssModules配置加过滤"><a href="#解决方案：-webpack-cssModules配置加过滤" class="headerlink" title="解决方案： webpack cssModules配置加过滤"></a>解决方案： <font face="楷体" size="4" color="Red"><strong>webpack cssModules配置加过滤</strong></font></h2><pre><code class="javascript">&#123;
+        test: [/\.css$/, /\.less$/],
+        exclude: [/[\\/]node_modules[\\/].*antd/], // 这里做个判断
+        use: [
+          &#39;style-loader&#39;,
+          &#123;
+            loader: &#39;css-loader&#39;,
+            options: &#123;
+              modules: true
+            &#125;
+          &#125;,
+          &#123;
+            loader: &#39;postcss-loader&#39;,
+            options: &#123;
+              ident: &#39;postcss&#39;,
+              plugins: (loader) =&gt; [
+                require(&#39;autoprefixer&#39;)()
+              ],
+            &#125;
+          &#125;,
+          &#123;
+            loader: &#39;less-loader&#39;,
+          &#125;,
+        ]
+      &#125;
+</code></pre>
+<br>
+
+
+<img src="/hlfblog/2021/04/02/webpack-antd-cssmodules%E6%B7%B7%E7%94%A8/3.jpg" class title="打完收工~~">  
+
+
+
+
+
+
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/02/10/mongodb-es5%E5%B0%81%E8%A3%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -662,7 +992,7 @@
               
                 <a href="/hlfblog/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -675,7 +1005,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/hlfblog/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
