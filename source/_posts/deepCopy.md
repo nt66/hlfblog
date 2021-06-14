@@ -1,12 +1,12 @@
 ---
-title: deepCopy
+title: 浅深拷贝的实现
 date: 2021-06-14 09:34:59
-tags: javasciprt
+tags: javascript
 ---
 
-# 浅拷贝、深拷贝的实现
+# deepCopy&shallowCopy
 
-## 浅拷贝
+## 浅拷贝 shallowCopy
 ```javascript
 /**
  * 浅拷贝
@@ -26,7 +26,7 @@ const shallowCopy = (obj) =>{
 ```
 <br/>
 
-## 深拷贝
+## 深拷贝 deepCopy
 ```javascript
 /**
  * 深拷贝
