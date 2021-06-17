@@ -380,7 +380,7 @@
   "resolved" "https://registry.npm.taobao.org/commander/download/commander-5.1.0.tgz?cache=0&sync_timestamp=1610702220922&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcommander%2Fdownload%2Fcommander-5.1.0.tgz"
   "version" "5.1.0"
 
-"commitizen@^4.0.3":
+"commitizen@^4.0.3", "commitizen@^4.2.4":
   "integrity" "sha1-o+Wza9dXX2v256oZ278GsNjzcWU="
   "resolved" "https://registry.nlark.com/commitizen/download/commitizen-4.2.4.tgz"
   "version" "4.2.4"
