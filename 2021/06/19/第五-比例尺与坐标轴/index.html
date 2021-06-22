@@ -81,14 +81,15 @@
 
 <meta name="description" content="比例尺与坐标轴01、定量比例尺D3中提供了多种的比例尺，但是都逃不开需要给定domain(定义域) 和 range(值域)。 最常用的是线性比例尺最标准的用法， 使用如下: 12345import * as d3 from &amp;#x27;d3&amp;#x27;;let linear &#x3D; d3.scale.linear().domain([0, 500]).range([0, 100]);console.l">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第五:比例尺与坐标轴">
+<meta property="og:title" content="第五:比例尺">
 <meta property="og:url" content="https://nt66.github.io/hlfblog/2021/06/19/%E7%AC%AC%E4%BA%94-%E6%AF%94%E4%BE%8B%E5%B0%BA%E4%B8%8E%E5%9D%90%E6%A0%87%E8%BD%B4/index.html">
 <meta property="og:site_name" content="灵峯 Blog">
 <meta property="og:description" content="比例尺与坐标轴01、定量比例尺D3中提供了多种的比例尺，但是都逃不开需要给定domain(定义域) 和 range(值域)。 最常用的是线性比例尺最标准的用法， 使用如下: 12345import * as d3 from &amp;#x27;d3&amp;#x27;;let linear &#x3D; d3.scale.linear().domain([0, 500]).range([0, 100]);console.l">
 <meta property="og:locale">
 <meta property="og:image" content="https://nt66.github.io/hlfblog/2021/06/19/%E7%AC%AC%E4%BA%94-%E6%AF%94%E4%BE%8B%E5%B0%BA%E4%B8%8E%E5%9D%90%E6%A0%87%E8%BD%B4/%E6%8C%87%E6%95%B0%E5%AF%B9%E6%95%B0%E5%AE%9A%E4%B9%89.png">
+<meta property="og:image" content="https://nt66.github.io/hlfblog/2021/06/19/%E7%AC%AC%E4%BA%94-%E6%AF%94%E4%BE%8B%E5%B0%BA%E4%B8%8E%E5%9D%90%E6%A0%87%E8%BD%B4/ordinalPadding.png">
 <meta property="article:published_time" content="2021-06-19T09:10:45.000Z">
-<meta property="article:modified_time" content="2021-06-21T09:16:44.331Z">
+<meta property="article:modified_time" content="2021-06-22T06:10:19.761Z">
 <meta property="article:author" content="hualingfeng">
 <meta property="article:tag" content="D3.js">
 <meta name="twitter:card" content="summary">
@@ -128,7 +129,7 @@
 
 
 
-  <title>第五:比例尺与坐标轴 | 灵峯 Blog</title>
+  <title>第五:比例尺 | 灵峯 Blog</title>
   
 
 
@@ -272,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第五:比例尺与坐标轴</h1>
+          <h1 class="post-title" itemprop="name headline">第五:比例尺</h1>
         
 
         <div class="post-meta">
@@ -378,9 +379,50 @@
 <p>使用示例</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pow = d3.scale.pow().exponent(<span class="number">3</span>);</span><br><span class="line">pow(<span class="number">2</span>) <span class="comment">// 8</span></span><br><span class="line">pow(<span class="number">3</span>) <span class="comment">// 27</span></span><br><span class="line"></span><br><span class="line">pow.exponent(<span class="number">0.5</span>);  <span class="comment">// 相当于开根号</span></span><br><span class="line">pow(<span class="number">2</span>) <span class="comment">// 1.414</span></span><br><span class="line">pow(<span class="number">3</span>) <span class="comment">// 1.732</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 指数标尺使得定义域相对的可以说是扩展为了[0, 3*3*3] = [0, 27]</span></span><br><span class="line"><span class="comment">* 相对于pow(1.5) 就是 3.375</span></span><br><span class="line"><span class="comment">* 相当于 对应的线性比例尺的结果</span></span><br><span class="line"><span class="comment">* let linear = scaleLinear().domain([0, 27]).range([0, 90]);</span></span><br><span class="line"><span class="comment">* console.log(linear(3.375));     // 11.25</span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line">pow.exponent(<span class="number">3</span>)</span><br><span class="line">    .domain([<span class="number">0</span>, <span class="number">3</span>])</span><br><span class="line">    .range([<span class="number">0</span>, <span class="number">90</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(pow(<span class="number">1.5</span>))           <span class="comment">// 11.25</span></span><br></pre></td></tr></table></figure>
 <h4 id="量子比例尺和分位比例尺-scale-quantize-scale-quantile"><a href="#量子比例尺和分位比例尺-scale-quantize-scale-quantile" class="headerlink" title="量子比例尺和分位比例尺 scale.quantize() | scale.quantile()"></a>量子比例尺和分位比例尺 scale.quantize() | scale.quantile()</h4><p>quantize()<br>定义域是连续的：[0,10]<br>值域是离散的：[‘white’, ‘red’, ‘blue’, ‘black’, ‘yellow’]<br>quantile()<br>和quantize类似，唯一的区别是定义域量子比例尺定义域只关心开始和结束，中间加多少都没关系[0,1,2,3,10]它只等于[0,10];分位比例尺每个间隔都对应离散数列</p>
-<p>使用示例</p>
+<p>quantize()|quantile() 使用示例</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> quantize = d3.scale.quantize().domain([<span class="number">0</span>, <span class="number">10</span>]).range([<span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;black&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(quantize(<span class="number">7</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> quantile = d3.scale.quantile().domain([<span class="number">1</span>,<span class="number">3</span>,<span class="number">6</span>]).range([<span class="string">&#x27;white&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;black&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(quantize(<span class="number">2</span>)) <span class="comment">// bulue 1和3之间对应[&#x27;white&#x27;, &#x27;red&#x27;, &#x27;blue&#x27;, &#x27;black&#x27;, &#x27;yellow&#x27;]</span></span><br></pre></td></tr></table></figure>
-<h4 id="阈值"><a href="#阈值" class="headerlink" title="阈值"></a>阈值</h4>
+<h4 id="阈值scale-threshold"><a href="#阈值scale-threshold" class="headerlink" title="阈值scale.threshold()"></a>阈值scale.threshold()</h4><p>将连续的定义域，映射到值域中去 和量子比例尺、分位比例尺类似</p>
+<p>threshold() 使用示例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义了3个阈值，被分割成四段[-∞,10],[10,20],[20,30],[30,+∞]，并且值映射到值域[&#x27;red&#x27;,&#x27;blue&#x27;,&#x27;green&#x27;,&#x27;black&#x27;]中去</span></span><br><span class="line"><span class="keyword">let</span> threshold = d3.scale.threshold().domain([<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>]).range([<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>,<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;black&#x27;</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(threshold(<span class="number">9</span>)) <span class="comment">// red</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h3 id="02、序数比例尺scale-ordinal"><a href="#02、序数比例尺scale-ordinal" class="headerlink" title="02、序数比例尺scale.ordinal"></a><div id="class02-01">02、序数比例尺scale.ordinal</div></h3><p><font color="red">序数比例尺是定义域、值域都是离散的</font><br>定义域和值域一一对应，且超过部分获取值域的第一个</p>
+<p>ordinal() 使用示例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> ordinal = d3.scale.ordinal().domain([<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;5&#x27;</span>]).range([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(ordinal(<span class="string">&#x27;1&#x27;</span>));              <span class="comment">// 10</span></span><br><span class="line"><span class="built_in">console</span>.log(ordinal(<span class="string">&#x27;2&#x27;</span>));              <span class="comment">// 20</span></span><br><span class="line"><span class="built_in">console</span>.log(ordinal(<span class="string">&#x27;3&#x27;</span>));              <span class="comment">// 30</span></span><br><span class="line"><span class="built_in">console</span>.log(ordinal(<span class="string">&#x27;4&#x27;</span>));              <span class="comment">// 40</span></span><br><span class="line"><span class="built_in">console</span>.log(ordinal(<span class="string">&#x27;5&#x27;</span>));              <span class="comment">// 50</span></span><br><span class="line"><span class="built_in">console</span>.log(ordinal(<span class="string">&#x27;10&#x27;</span>));              <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+<p>ordinalPoints() 一个一个定义太麻烦，所以用ordinalPoints()设置连续的值域，来对应定义域上的值</p>
+<p>使用示例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> ordinal = d3.scale.ordinal().domain([<span class="string">&#x27;1&#x27;</span>,<span class="string">&#x27;2&#x27;</span>,<span class="string">&#x27;3&#x27;</span>,<span class="string">&#x27;4&#x27;</span>,<span class="string">&#x27;5&#x27;</span>]).rangePoints([<span class="number">0</span>,<span class="number">100</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(ordinal.range()); <span class="comment">// [0,25,50,75,100]</span></span><br><span class="line"><span class="built_in">console</span>.log(ordinal(<span class="number">1</span>)); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(ordinal(<span class="number">3</span>)); <span class="comment">//50</span></span><br></pre></td></tr></table></figure>
+<p>ordinalPoints()有两个参数 interval,padding， 间隔|边距</p>
+<p>记住这张图</p>
+<img src="/hlfblog/2021/06/19/%E7%AC%AC%E4%BA%94-%E6%AF%94%E4%BE%8B%E5%B0%BA%E4%B8%8E%E5%9D%90%E6%A0%87%E8%BD%B4/ordinalPadding.png" class>
+
+
+<h4 id="颜色比例尺"><a href="#颜色比例尺" class="headerlink" title="颜色比例尺"></a>颜色比例尺</h4><p>序号比例尺的一种</p>
+<table>
+<thead>
+<tr>
+<th align="left">api</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">d3.scale.category10()</td>
+<td align="left">10种颜色</td>
+</tr>
+<tr>
+<td align="left">d3.scale.category20()</td>
+<td align="left">20种颜色</td>
+</tr>
+<tr>
+<td align="left">d3.scale.category20b()</td>
+<td align="left">20种颜色</td>
+</tr>
+<tr>
+<td align="left">d3.scale.category20c()</td>
+<td align="left">20种颜色</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> width = <span class="number">600</span>;</span><br><span class="line"><span class="keyword">let</span> height = <span class="number">600</span>;</span><br><span class="line"><span class="keyword">let</span> dataSet = d3.range(<span class="number">5</span>); <span class="comment">// [0,1,2,3,4,5]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> color = d3.scale.category10(); <span class="comment">// 设置颜色</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> svg = d3.select(<span class="string">&quot;body&quot;</span>).append(<span class="string">&#x27;svg&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;width&#x27;</span>,width)</span><br><span class="line">            .attr(<span class="string">&#x27;height&#x27;</span>,height);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> circle = svg.selectAll(<span class="string">&#x27;circle&#x27;</span>)</span><br><span class="line">                .data(dataSet)</span><br><span class="line">                .enter()</span><br><span class="line">                .append(<span class="string">&#x27;circle&#x27;</span>)</span><br><span class="line">                .attr(<span class="string">&#x27;cx&#x27;</span>,<span class="function">(<span class="params">d,i</span>)=&gt;</span><span class="number">30</span>+i*<span class="number">80</span>)</span><br><span class="line">                .attr(<span class="string">&#x27;cy&#x27;</span>,<span class="function">(<span class="params">d,i</span>)=&gt;</span><span class="number">100</span>)</span><br><span class="line">                .attr(<span class="string">&#x27;r&#x27;</span>,<span class="number">30</span>)</span><br><span class="line">                .attr(<span class="string">&#x27;fill&#x27;</span>,<span class="function">(<span class="params">_,i</span>) =&gt;</span>color(i));</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -545,7 +587,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E4%BE%8B%E5%B0%BA%E4%B8%8E%E5%9D%90%E6%A0%87%E8%BD%B4"><span class="nav-number">1.</span> <span class="nav-text">比例尺与坐标轴</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#01%E3%80%81%E5%AE%9A%E9%87%8F%E6%AF%94%E4%BE%8B%E5%B0%BA"><span class="nav-number">1.1.</span> <span class="nav-text">01、定量比例尺</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%AF%94%E4%BE%8B%E5%B0%BA-scale-linear"><span class="nav-number">1.1.1.</span> <span class="nav-text">线性比例尺 scale.linear()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E6%95%B0%E5%92%8C%E5%AF%B9%E6%95%B0%E6%AF%94%E4%BE%8B%E5%B0%BA-scale-scalePow-scale-scaleLog"><span class="nav-number">1.1.2.</span> <span class="nav-text">指数和对数比例尺 scale.scalePow() | scale.scaleLog()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8F%E5%AD%90%E6%AF%94%E4%BE%8B%E5%B0%BA%E5%92%8C%E5%88%86%E4%BD%8D%E6%AF%94%E4%BE%8B%E5%B0%BA-scale-quantize-scale-quantile"><span class="nav-number">1.1.3.</span> <span class="nav-text">量子比例尺和分位比例尺 scale.quantize() | scale.quantile()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%88%E5%80%BC"><span class="nav-number">1.1.4.</span> <span class="nav-text">阈值</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E4%BE%8B%E5%B0%BA%E4%B8%8E%E5%9D%90%E6%A0%87%E8%BD%B4"><span class="nav-number">1.</span> <span class="nav-text">比例尺与坐标轴</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#01%E3%80%81%E5%AE%9A%E9%87%8F%E6%AF%94%E4%BE%8B%E5%B0%BA"><span class="nav-number">1.1.</span> <span class="nav-text">01、定量比例尺</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%AF%94%E4%BE%8B%E5%B0%BA-scale-linear"><span class="nav-number">1.1.1.</span> <span class="nav-text">线性比例尺 scale.linear()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E6%95%B0%E5%92%8C%E5%AF%B9%E6%95%B0%E6%AF%94%E4%BE%8B%E5%B0%BA-scale-scalePow-scale-scaleLog"><span class="nav-number">1.1.2.</span> <span class="nav-text">指数和对数比例尺 scale.scalePow() | scale.scaleLog()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8F%E5%AD%90%E6%AF%94%E4%BE%8B%E5%B0%BA%E5%92%8C%E5%88%86%E4%BD%8D%E6%AF%94%E4%BE%8B%E5%B0%BA-scale-quantize-scale-quantile"><span class="nav-number">1.1.3.</span> <span class="nav-text">量子比例尺和分位比例尺 scale.quantize() | scale.quantile()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%88%E5%80%BCscale-threshold"><span class="nav-number">1.1.4.</span> <span class="nav-text">阈值scale.threshold()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#02%E3%80%81%E5%BA%8F%E6%95%B0%E6%AF%94%E4%BE%8B%E5%B0%BAscale-ordinal"><span class="nav-number">1.2.</span> <span class="nav-text">02、序数比例尺scale.ordinal</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2%E6%AF%94%E4%BE%8B%E5%B0%BA"><span class="nav-number">1.2.1.</span> <span class="nav-text">颜色比例尺</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
