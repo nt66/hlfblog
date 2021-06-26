@@ -87,7 +87,7 @@
 <meta property="og:description" content="颜色01、RRB   api 说明    rba() 设置颜色   color.toString() 获取颜色   interpolate(color1,color2) 获取颜色之间的差值   12345let a &#x3D; d3.rgb(&amp;#x27;red&amp;#x27;);let b &#x3D; d3.rgb(&amp;#x27;green&amp;#x27;);let compute &#x3D; d3.interpolate(a,b">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-06-22T14:59:00.000Z">
-<meta property="article:modified_time" content="2021-06-25T07:00:51.060Z">
+<meta property="article:modified_time" content="2021-06-26T15:31:29.052Z">
 <meta property="article:author" content="hualingfeng">
 <meta property="article:tag" content="D3.js">
 <meta name="twitter:card" content="summary">
@@ -406,9 +406,45 @@
 
 <h3 id="03、arc-弧线"><a href="#03、arc-弧线" class="headerlink" title="03、arc 弧线"></a>03、arc 弧线</h3><p>方法一：</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 弧参数</span></span><br><span class="line"><span class="keyword">let</span> dataSet: DefaultArcObject = &#123;</span><br><span class="line">    startAngle: <span class="number">0</span>,</span><br><span class="line">    endAngle: <span class="built_in">Math</span>.PI * <span class="number">.75</span>,</span><br><span class="line">    innerRadius: <span class="number">50</span>,</span><br><span class="line">    outerRadius: <span class="number">100</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 创建弧形生成器</span></span><br><span class="line"><span class="keyword">let</span> arcPath = arc();</span><br><span class="line"><span class="comment">// 添加路径</span></span><br><span class="line"><span class="built_in">this</span>.svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;d&#x27;</span>, arcPath(dataSet))</span><br><span class="line">    .attr(<span class="string">&#x27;transform&#x27;</span>, <span class="string">`translate(250, 250)`</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke&#x27;</span>, <span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke-width&#x27;</span>, <span class="string">&#x27;3px&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;#eee&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<br>
+
 <p>方法二：</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建弧形生成器</span></span><br><span class="line"><span class="keyword">let</span> arcPath = arc().innerRadius(<span class="number">50</span>).outerRadius(<span class="number">100</span>).startAngle(<span class="number">0</span>).endAngle(<span class="built_in">Math</span>.PI *<span class="number">.75</span>);</span><br><span class="line"><span class="comment">// 添加路径</span></span><br><span class="line"><span class="built_in">this</span>.svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;d&#x27;</span>, arcPath)</span><br><span class="line">    .attr(<span class="string">&#x27;transform&#x27;</span>, <span class="string">`translate(250, 250)`</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke&#x27;</span>, <span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke-width&#x27;</span>, <span class="string">&#x27;3px&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;#eee&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
+<h3 id="04、symbol图形"><a href="#04、symbol图形" class="headerlink" title="04、symbol图形"></a>04、symbol图形</h3><p>画一个星形</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> svg = d3.select(<span class="string">&#x27;body&#x27;</span>)</span><br><span class="line">            .append(<span class="string">&#x27;svg&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;width&#x27;</span>,<span class="number">600</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;height&#x27;</span>,<span class="number">600</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> symbolPath = d3.symbol().type(d3.symbolStar).size(<span class="number">1000</span>);</span><br><span class="line">svg.append(<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&quot;transform&quot;</span>, <span class="string">&quot;translate(200,200)&quot;</span>)</span><br><span class="line">   .append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;d&#x27;</span>,symbolPath)</span><br><span class="line">   .attr(<span class="string">&#x27;fill&#x27;</span>,<span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;stroke&#x27;</span>,<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;stroke-width&#x27;</span>,<span class="string">&#x27;3px&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="left">api</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">d3.symbolCross</td>
+<td align="left">十字</td>
+</tr>
+<tr>
+<td align="left">d3.symbolDiamond</td>
+<td align="left">钻石</td>
+</tr>
+<tr>
+<td align="left">d3.symbolSquare</td>
+<td align="left">矩形</td>
+</tr>
+<tr>
+<td align="left">d3.symbolStar</td>
+<td align="left">星形</td>
+</tr>
+<tr>
+<td align="left">d3.symbolTriangle</td>
+<td align="left">三角形</td>
+</tr>
+<tr>
+<td align="left">d3.symbolWye</td>
+<td align="left">Y形</td>
+</tr>
+</tbody></table>
+<h3 id="05、弦生成器（暂时略）"><a href="#05、弦生成器（暂时略）" class="headerlink" title="05、弦生成器（暂时略）"></a>05、弦生成器（暂时略）</h3><h3 id="06、对角线生成器（暂时略）"><a href="#06、对角线生成器（暂时略）" class="headerlink" title="06、对角线生成器（暂时略）"></a>06、对角线生成器（暂时略）</h3>
       
     </div>
     
@@ -577,7 +613,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2"><span class="nav-number">1.</span> <span class="nav-text">颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#01%E3%80%81RRB"><span class="nav-number">1.1.</span> <span class="nav-text">01、RRB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#02%E3%80%81lines"><span class="nav-number">1.2.</span> <span class="nav-text">02、lines</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#02%E3%80%81area"><span class="nav-number">1.3.</span> <span class="nav-text">02、area</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#03%E3%80%81arc-%E5%BC%A7%E7%BA%BF"><span class="nav-number">1.4.</span> <span class="nav-text">03、arc 弧线</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2"><span class="nav-number">1.</span> <span class="nav-text">颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#01%E3%80%81RRB"><span class="nav-number">1.1.</span> <span class="nav-text">01、RRB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#02%E3%80%81lines"><span class="nav-number">1.2.</span> <span class="nav-text">02、lines</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#02%E3%80%81area"><span class="nav-number">1.3.</span> <span class="nav-text">02、area</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#03%E3%80%81arc-%E5%BC%A7%E7%BA%BF"><span class="nav-number">1.4.</span> <span class="nav-text">03、arc 弧线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#04%E3%80%81symbol%E5%9B%BE%E5%BD%A2"><span class="nav-number">1.5.</span> <span class="nav-text">04、symbol图形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#05%E3%80%81%E5%BC%A6%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88%E6%9A%82%E6%97%B6%E7%95%A5%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">05、弦生成器（暂时略）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#06%E3%80%81%E5%AF%B9%E8%A7%92%E7%BA%BF%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88%E6%9A%82%E6%97%B6%E7%95%A5%EF%BC%89"><span class="nav-number">1.7.</span> <span class="nav-text">06、对角线生成器（暂时略）</span></a></li></ol></li></ol></div>
             
 
           </div>

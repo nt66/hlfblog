@@ -581,9 +581,45 @@
 
 <h3 id="03、arc-弧线"><a href="#03、arc-弧线" class="headerlink" title="03、arc 弧线"></a>03、arc 弧线</h3><p>方法一：</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 弧参数</span></span><br><span class="line"><span class="keyword">let</span> dataSet: DefaultArcObject = &#123;</span><br><span class="line">    startAngle: <span class="number">0</span>,</span><br><span class="line">    endAngle: <span class="built_in">Math</span>.PI * <span class="number">.75</span>,</span><br><span class="line">    innerRadius: <span class="number">50</span>,</span><br><span class="line">    outerRadius: <span class="number">100</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 创建弧形生成器</span></span><br><span class="line"><span class="keyword">let</span> arcPath = arc();</span><br><span class="line"><span class="comment">// 添加路径</span></span><br><span class="line"><span class="built_in">this</span>.svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;d&#x27;</span>, arcPath(dataSet))</span><br><span class="line">    .attr(<span class="string">&#x27;transform&#x27;</span>, <span class="string">`translate(250, 250)`</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke&#x27;</span>, <span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke-width&#x27;</span>, <span class="string">&#x27;3px&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;#eee&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<br>
+
 <p>方法二：</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建弧形生成器</span></span><br><span class="line"><span class="keyword">let</span> arcPath = arc().innerRadius(<span class="number">50</span>).outerRadius(<span class="number">100</span>).startAngle(<span class="number">0</span>).endAngle(<span class="built_in">Math</span>.PI *<span class="number">.75</span>);</span><br><span class="line"><span class="comment">// 添加路径</span></span><br><span class="line"><span class="built_in">this</span>.svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;d&#x27;</span>, arcPath)</span><br><span class="line">    .attr(<span class="string">&#x27;transform&#x27;</span>, <span class="string">`translate(250, 250)`</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke&#x27;</span>, <span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke-width&#x27;</span>, <span class="string">&#x27;3px&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;#eee&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
+<h3 id="04、symbol图形"><a href="#04、symbol图形" class="headerlink" title="04、symbol图形"></a>04、symbol图形</h3><p>画一个星形</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> svg = d3.select(<span class="string">&#x27;body&#x27;</span>)</span><br><span class="line">            .append(<span class="string">&#x27;svg&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;width&#x27;</span>,<span class="number">600</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;height&#x27;</span>,<span class="number">600</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> symbolPath = d3.symbol().type(d3.symbolStar).size(<span class="number">1000</span>);</span><br><span class="line">svg.append(<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&quot;transform&quot;</span>, <span class="string">&quot;translate(200,200)&quot;</span>)</span><br><span class="line">   .append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;d&#x27;</span>,symbolPath)</span><br><span class="line">   .attr(<span class="string">&#x27;fill&#x27;</span>,<span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;stroke&#x27;</span>,<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;stroke-width&#x27;</span>,<span class="string">&#x27;3px&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="left">api</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">d3.symbolCross</td>
+<td align="left">十字</td>
+</tr>
+<tr>
+<td align="left">d3.symbolDiamond</td>
+<td align="left">钻石</td>
+</tr>
+<tr>
+<td align="left">d3.symbolSquare</td>
+<td align="left">矩形</td>
+</tr>
+<tr>
+<td align="left">d3.symbolStar</td>
+<td align="left">星形</td>
+</tr>
+<tr>
+<td align="left">d3.symbolTriangle</td>
+<td align="left">三角形</td>
+</tr>
+<tr>
+<td align="left">d3.symbolWye</td>
+<td align="left">Y形</td>
+</tr>
+</tbody></table>
+<h3 id="05、弦生成器（暂时略）"><a href="#05、弦生成器（暂时略）" class="headerlink" title="05、弦生成器（暂时略）"></a>05、弦生成器（暂时略）</h3><h3 id="06、对角线生成器（暂时略）"><a href="#06、对角线生成器（暂时略）" class="headerlink" title="06、对角线生成器（暂时略）"></a>06、对角线生成器（暂时略）</h3>
           
         
       
