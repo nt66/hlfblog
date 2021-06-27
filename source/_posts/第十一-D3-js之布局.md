@@ -26,9 +26,10 @@ let dataSet:any = [
 // set pie dataObject
 let pieMain = d3.pie().value(d=>d[1]);
 let pieData = pieMain(dataSet);
+console.log('pieData',pieData);
 
 // 画弧
-let outerRadius = width/3;
+let outerRadius = width/2.6;
 let innerRadius = 0;
 
 let arcMain = d3.arc()
@@ -38,17 +39,16 @@ let arcMain = d3.arc()
 // 定义七个颜色
 let colors = ['red','blue','yellow','green','black','steelblue','gray'];
 
-// 定义arcs元素
+// 画个g容器
 let arcs = svg.selectAll('g')
               .data(pieData)
               .enter()
               .append('g')
               .attr('transform',`translate(${width/2},${height/2})`)
 
-// 把path加到arcs中
 arcs.append('path')
     .attr('fill',(d:any,i:number)=>colors[i])
-    .attr('d'.(d:any)=>arcMain(d));
+    .attr('d',(d:any)=>arcMain(d));
 
 // 添加文字
 arcs.append('text')
@@ -58,7 +58,7 @@ arcs.append('text')
       return `translate(${x},${y})`;
     })
     .attr('fill','white')
-    .attr('text-anchor', 'middle') // 文字居中
+    .attr('text-anchor', 'middle')
     .attr('font-size',18)
     .text( (d: any)=> {
         let percent: number = d.value / d3.sum(dataSet, function (d: any) {
