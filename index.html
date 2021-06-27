@@ -252,6 +252,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/06/27/%E7%AC%AC%E5%8D%81-D3-js%E4%BA%8B%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hlfblog/images/avatar3.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="灵峯 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hlfblog/2021/06/27/%E7%AC%AC%E5%8D%81-D3-js%E4%BA%8B%E4%BB%B6/" itemprop="url">第十--D3.js事件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-27T20:29:55+08:00">
+                2021-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p><strong>d3的事件可分为：鼠标事件|键盘事件|触屏事件|拖拽|缩放</strong></p>
+<h3 id="鼠标事件比较简单，用on方法监听即可"><a href="#鼠标事件比较简单，用on方法监听即可" class="headerlink" title="鼠标事件比较简单，用on方法监听即可"></a>鼠标事件比较简单，用on方法监听即可</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> rect = svg.append(<span class="string">&#x27;rect&#x27;</span>)</span><br><span class="line">              .attr(<span class="string">&#x27;fill&#x27;</span>,<span class="string">&#x27;steelblue&#x27;</span>)</span><br><span class="line">              .attr(<span class="string">&#x27;x&#x27;</span>,<span class="number">200</span>)</span><br><span class="line">              .attr(<span class="string">&#x27;y&#x27;</span>,<span class="number">200</span>)</span><br><span class="line">              .attr(<span class="string">&#x27;width&#x27;</span>,<span class="number">100</span>)</span><br><span class="line">              .attr(<span class="string">&#x27;height&#x27;</span>,<span class="number">30</span>)</span><br><span class="line">              .on(<span class="string">&#x27;mouseover&#x27;</span>,<span class="function">(<span class="params">d,i</span>)=&gt;</span>&#123;</span><br><span class="line">                  d3.select(<span class="built_in">this</span>) <span class="comment">// 注意这里，只有多个元素才能用。 单个直接用rect对象</span></span><br><span class="line">                    .transition()</span><br><span class="line">                    .duration(<span class="number">500</span>)</span><br><span class="line">                    .attr(<span class="string">&#x27;fill&#x27;</span>,<span class="string">&#x27;red&#x27;</span>);</span><br><span class="line">              &#125;);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="left">API</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">click</td>
+<td align="left">点击</td>
+</tr>
+<tr>
+<td align="left">mouseover</td>
+<td align="left">略了吧</td>
+</tr>
+<tr>
+<td align="left">mouseout</td>
+<td align="left">略了吧</td>
+</tr>
+<tr>
+<td align="left">mousemove</td>
+<td align="left">略了吧</td>
+</tr>
+<tr>
+<td align="left">mousedown</td>
+<td align="left">略了吧</td>
+</tr>
+<tr>
+<td align="left">mouseup</td>
+<td align="left">略了吧</td>
+</tr>
+<tr>
+<td align="left">dbclick</td>
+<td align="left">略了吧</td>
+</tr>
+</tbody></table>
+<br>
+
+<h3 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a>键盘事件</h3><p><strong>keydown|keypress|keyup</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">d3.select(<span class="string">&#x27;body&#x27;</span>)</span><br><span class="line">  .on(<span class="string">&#x27;keydown&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// d3.event.keyCode  键ID</span></span><br><span class="line">    rect.attr(<span class="string">&#x27;fill&#x27;</span>,<span class="string">&#x27;yellow&#x27;</span>)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="left">API</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">keydown</td>
+<td align="left">按下</td>
+</tr>
+<tr>
+<td align="left">keyup</td>
+<td align="left">弹起</td>
+</tr>
+<tr>
+<td align="left">keypress</td>
+<td align="left">特殊键盘按下</td>
+</tr>
+</tbody></table>
+<br>
+
+<p>其他事件如 <strong>drag</strong> 等先略过</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/06/27/%E7%AC%AC%E4%B9%9D-%E5%8A%A8%E7%94%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1848,131 +2032,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/02/10/mongodb-es5%E5%B0%81%E8%A3%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/hlfblog/images/avatar3.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="灵峯 Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/hlfblog/2021/02/10/mongodb-es5%E5%B0%81%E8%A3%85/" itemprop="url">Mongodb操作 之 ES5封装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-10T22:39:54+08:00">
-                2021-02-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>继mongodb ES6封装之后，突然想着用ES5的返祖写法去实现一下^_^。其实原理差不多，区别主要是前者用的promise，后者用的callback。仅此而已。</p>
-<img src="/hlfblog/2021/02/10/mongodb-es5%E5%B0%81%E8%A3%85/es5.png" class title="返祖">
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/hlfblog/2021/02/10/mongodb-es5%E5%B0%81%E8%A3%85/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2027,7 +2086,7 @@
               
                 <a href="/hlfblog/archives">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
