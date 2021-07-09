@@ -1,5 +1,5 @@
 ---
-title: svg之<path>详解
+title: svg之path详解
 date: 2021-06-23 15:34:37
 tags: svg
 ---
