@@ -252,6 +252,249 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/06/22/%E7%AC%AC%E4%B8%83-%E7%BB%98%E5%9B%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hlfblog/images/avatar3.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="灵峯 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hlfblog/2021/06/22/%E7%AC%AC%E4%B8%83-%E7%BB%98%E5%9B%BE/" itemprop="url">第七-D3.js绘图</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-22T22:59:00+08:00">
+                2021-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h2><h3 id="01、RRB"><a href="#01、RRB" class="headerlink" title="01、RRB"></a>01、RRB</h3><table>
+<thead>
+<tr>
+<th align="left">api</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">rba()</td>
+<td align="left">设置颜色</td>
+</tr>
+<tr>
+<td align="left">color.toString()</td>
+<td align="left">获取颜色</td>
+</tr>
+<tr>
+<td align="left">interpolate(color1,color2)</td>
+<td align="left">获取颜色之间的差值</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = d3.rgb(<span class="string">&#x27;red&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> b = d3.rgb(<span class="string">&#x27;green&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> compute = d3.interpolate(a,b);</span><br><span class="line"></span><br><span class="line">compute(<span class="number">1</span>); <span class="comment">// rgb(0,255,0) ; 0是red，1是green，0～1之间red和green之间；&gt;1green;&lt;0 red;</span></span><br></pre></td></tr></table></figure>
+<h3 id="02、lines"><a href="#02、lines" class="headerlink" title="02、lines"></a>02、lines</h3><p>demo1 普通直线</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> width = <span class="number">600</span>;</span><br><span class="line"><span class="keyword">let</span> height = <span class="number">600</span>;</span><br><span class="line"><span class="keyword">let</span> lines = [[<span class="number">10</span>,<span class="number">10</span>],[<span class="number">20</span>,<span class="number">50</span>],[<span class="number">80</span>,<span class="number">30</span>],[<span class="number">200</span>,<span class="number">500</span>],[<span class="number">220</span>,<span class="number">150</span>]];</span><br><span class="line"><span class="keyword">let</span> svg = d3.select(<span class="string">&#x27;body&#x27;</span>).append(<span class="string">&#x27;svg&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;height&#x27;</span>, height)</span><br><span class="line">    .attr(<span class="string">&#x27;width&#x27;</span>, width);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> linePath = d3.line();</span><br><span class="line"></span><br><span class="line">svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;d&#x27;</span>,linePath(lines))</span><br><span class="line">   .attr(<span class="string">&#x27;stroke&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;stroke-width&#x27;</span>,<span class="string">&#x27;3px&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;fill&#x27;</span>,<span class="string">&#x27;none&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>demo2 贝塞尔曲线</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> width = <span class="number">600</span>;</span><br><span class="line"><span class="keyword">let</span> height = <span class="number">600</span>;</span><br><span class="line"><span class="keyword">let</span> lines = [[<span class="number">10</span>,<span class="number">10</span>],[<span class="number">20</span>,<span class="number">50</span>],[<span class="number">80</span>,<span class="number">30</span>],[<span class="number">200</span>,<span class="number">500</span>],[<span class="number">220</span>,<span class="number">150</span>]];</span><br><span class="line"><span class="keyword">let</span> svg = d3.select(<span class="string">&#x27;body&#x27;</span>).append(<span class="string">&#x27;svg&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;height&#x27;</span>, height)</span><br><span class="line">    .attr(<span class="string">&#x27;width&#x27;</span>, width);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> linePath = d3.line().x(<span class="function">(<span class="params">d</span>)=&gt;</span>d[<span class="number">0</span>]).curve(d3.curveBasis);</span><br><span class="line"></span><br><span class="line">svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;d&#x27;</span>,linePath(lines))</span><br><span class="line">   .attr(<span class="string">&#x27;stroke&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;stroke-width&#x27;</span>,<span class="string">&#x27;3px&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;fill&#x27;</span>,<span class="string">&#x27;none&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="left">api</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">d3.line()</td>
+<td align="left">创建线</td>
+</tr>
+<tr>
+<td align="left">line.x([x])</td>
+<td align="left">设置x坐标值</td>
+</tr>
+<tr>
+<td align="left">line.y([y])</td>
+<td align="left">设置y坐标值</td>
+</tr>
+<tr>
+<td align="left">curve([curve])</td>
+<td align="left">曲线类型 具体有哪些插值模式，<a target="_blank" rel="noopener" href="https://github.com/xswei/d3js_doc/blob/master/API_Reference/API.md#curves">官方api</a></td>
+</tr>
+</tbody></table>
+<h3 id="02、area"><a href="#02、area" class="headerlink" title="02、area"></a>02、area</h3><table>
+<thead>
+<tr>
+<th align="left">api</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">x</td>
+<td align="left">横坐标</td>
+</tr>
+<tr>
+<td align="left">y</td>
+<td align="left">纵坐标</td>
+</tr>
+<tr>
+<td align="left">y0</td>
+<td align="left">底部y坐标</td>
+</tr>
+<tr>
+<td align="left">y1</td>
+<td align="left">顶部y坐标</td>
+</tr>
+<tr>
+<td align="left">x0</td>
+<td align="left">和y0类似</td>
+</tr>
+<tr>
+<td align="left">x1</td>
+<td align="left">和y1类似</td>
+</tr>
+</tbody></table>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> height:<span class="built_in">number</span> = <span class="number">600</span>;</span><br><span class="line"><span class="keyword">let</span> width:<span class="built_in">number</span> = <span class="number">600</span>;</span><br><span class="line"><span class="keyword">let</span> svg = d3.select(<span class="string">&#x27;body&#x27;</span>).append(<span class="string">&#x27;svg&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;height&#x27;</span>, <span class="number">600</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;width&#x27;</span>, <span class="number">600</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dataSet: [<span class="built_in">number</span>, <span class="built_in">number</span>][] = [[<span class="number">80</span>, <span class="number">80</span>], [<span class="number">120</span>, <span class="number">120</span>], [<span class="number">130</span>, <span class="number">130</span>], [<span class="number">70</span>, <span class="number">70</span>], [<span class="number">60</span>, <span class="number">60</span>], [<span class="number">90</span>, <span class="number">90</span>]];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个区域生成器</span></span><br><span class="line"><span class="keyword">let</span> areaPath = d3.area()</span><br><span class="line">    .x(<span class="function">(<span class="params">d: [<span class="built_in">number</span>, <span class="built_in">number</span>], i: <span class="built_in">number</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">50</span> + i * <span class="number">60</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">    .y0(<span class="function">(<span class="params">d: [<span class="built_in">number</span>, <span class="built_in">number</span>], i: <span class="built_in">number</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> height / <span class="number">2</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">    .y1(<span class="function">(<span class="params">d: [<span class="built_in">number</span>, <span class="built_in">number</span>], i: <span class="built_in">number</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> height / <span class="number">2</span> - d[<span class="number">0</span>];</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;d&#x27;</span>, areaPath(dataSet))</span><br><span class="line">    .attr(<span class="string">&#x27;stroke&#x27;</span>, <span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke-width&#x27;</span>, <span class="string">&#x27;3px&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;#eee&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<br>
+
+<h3 id="03、arc-弧线"><a href="#03、arc-弧线" class="headerlink" title="03、arc 弧线"></a>03、arc 弧线</h3><p>方法一：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 弧参数</span></span><br><span class="line"><span class="keyword">let</span> dataSet: DefaultArcObject = &#123;</span><br><span class="line">    startAngle: <span class="number">0</span>,</span><br><span class="line">    endAngle: <span class="built_in">Math</span>.PI * <span class="number">.75</span>,</span><br><span class="line">    innerRadius: <span class="number">50</span>,</span><br><span class="line">    outerRadius: <span class="number">100</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 创建弧形生成器</span></span><br><span class="line"><span class="keyword">let</span> arcPath = arc();</span><br><span class="line"><span class="comment">// 添加路径</span></span><br><span class="line"><span class="built_in">this</span>.svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;d&#x27;</span>, arcPath(dataSet))</span><br><span class="line">    .attr(<span class="string">&#x27;transform&#x27;</span>, <span class="string">`translate(250, 250)`</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke&#x27;</span>, <span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke-width&#x27;</span>, <span class="string">&#x27;3px&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;#eee&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>方法二：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建弧形生成器</span></span><br><span class="line"><span class="keyword">let</span> arcPath = arc().innerRadius(<span class="number">50</span>).outerRadius(<span class="number">100</span>).startAngle(<span class="number">0</span>).endAngle(<span class="built_in">Math</span>.PI *<span class="number">.75</span>);</span><br><span class="line"><span class="comment">// 添加路径</span></span><br><span class="line"><span class="built_in">this</span>.svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;d&#x27;</span>, arcPath)</span><br><span class="line">    .attr(<span class="string">&#x27;transform&#x27;</span>, <span class="string">`translate(250, 250)`</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke&#x27;</span>, <span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;stroke-width&#x27;</span>, <span class="string">&#x27;3px&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;#eee&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="04、symbol图形"><a href="#04、symbol图形" class="headerlink" title="04、symbol图形"></a>04、symbol图形</h3><p>画一个星形</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> svg = d3.select(<span class="string">&#x27;body&#x27;</span>)</span><br><span class="line">            .append(<span class="string">&#x27;svg&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;width&#x27;</span>,<span class="number">600</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;height&#x27;</span>,<span class="number">600</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> symbolPath = d3.symbol().type(d3.symbolStar).size(<span class="number">1000</span>);</span><br><span class="line">svg.append(<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&quot;transform&quot;</span>, <span class="string">&quot;translate(200,200)&quot;</span>)</span><br><span class="line">   .append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;d&#x27;</span>,symbolPath)</span><br><span class="line">   .attr(<span class="string">&#x27;fill&#x27;</span>,<span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;stroke&#x27;</span>,<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">   .attr(<span class="string">&#x27;stroke-width&#x27;</span>,<span class="string">&#x27;3px&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="left">api</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">d3.symbolCross</td>
+<td align="left">十字</td>
+</tr>
+<tr>
+<td align="left">d3.symbolDiamond</td>
+<td align="left">钻石</td>
+</tr>
+<tr>
+<td align="left">d3.symbolSquare</td>
+<td align="left">矩形</td>
+</tr>
+<tr>
+<td align="left">d3.symbolStar</td>
+<td align="left">星形</td>
+</tr>
+<tr>
+<td align="left">d3.symbolTriangle</td>
+<td align="left">三角形</td>
+</tr>
+<tr>
+<td align="left">d3.symbolWye</td>
+<td align="left">Y形</td>
+</tr>
+</tbody></table>
+<h3 id="05、弦生成器（暂时略）"><a href="#05、弦生成器（暂时略）" class="headerlink" title="05、弦生成器（暂时略）"></a>05、弦生成器（暂时略）</h3><h3 id="06、对角线生成器（暂时略）"><a href="#06、对角线生成器（暂时略）" class="headerlink" title="06、对角线生成器（暂时略）"></a>06、对角线生成器（暂时略）</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/06/22/%E7%AC%AC%E5%85%AD-%E5%9D%90%E6%A0%87%E8%BD%B4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1516,7 +1759,7 @@
               
                 <a href="/hlfblog/archives">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
