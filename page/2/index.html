@@ -252,6 +252,185 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/06/22/%E7%AC%AC%E5%85%AD-%E5%9D%90%E6%A0%87%E8%BD%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hlfblog/images/avatar3.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="灵峯 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hlfblog/2021/06/22/%E7%AC%AC%E5%85%AD-%E5%9D%90%E6%A0%87%E8%BD%B4/" itemprop="url">第六-D3.js之坐标轴</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-22T14:22:01+08:00">
+                2021-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="坐标轴"><a href="#坐标轴" class="headerlink" title="坐标轴"></a>坐标轴</h2><h3 id="简单坐标轴"><a href="#简单坐标轴" class="headerlink" title="简单坐标轴"></a>简单坐标轴</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> width = <span class="number">600</span>;</span><br><span class="line"><span class="keyword">let</span> height = <span class="number">600</span>;</span><br><span class="line"><span class="keyword">let</span> svg = d3.select(<span class="string">&#x27;body&#x27;</span>).append(<span class="string">&#x27;svg&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;height&#x27;</span>, height)</span><br><span class="line">    .attr(<span class="string">&#x27;width&#x27;</span>, width);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用于坐标轴的线性比例尺</span></span><br><span class="line"><span class="keyword">let</span> xScale = d3.scale.linear().domain([<span class="number">0</span>,<span class="number">10</span>]).range([<span class="number">0</span>, <span class="number">300</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 坐标轴</span></span><br><span class="line"><span class="keyword">let</span> axis = d3.svg.axis().scale(xScale).orient(<span class="string">&quot;bottom&quot;</span>); <span class="comment">// bottom|top|left|right</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在svg中添加一个包含坐标各个元素的g元素</span></span><br><span class="line"><span class="keyword">let</span> gAxis = svg.append(<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;transform&#x27;</span>, <span class="string">`translate(80, 80)`</span>);         <span class="comment">// 平移到（80，80）</span></span><br><span class="line"></span><br><span class="line">gAxis.call(axis); <span class="comment">// axis(gAxis); 两种调用方式</span></span><br></pre></td></tr></table></figure>
+<h3 id="刻度"><a href="#刻度" class="headerlink" title="刻度"></a>刻度</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> width:<span class="built_in">number</span> = <span class="number">600</span>, <span class="attr">height</span>: <span class="built_in">number</span> = <span class="number">600</span>;</span><br><span class="line"><span class="keyword">let</span> svg = d3.select(<span class="string">&#x27;body&#x27;</span>).append(<span class="string">&#x27;svg&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;height&#x27;</span>, height)</span><br><span class="line">    .attr(<span class="string">&#x27;width&#x27;</span>, width);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用于坐标轴的线性比例尺</span></span><br><span class="line"><span class="keyword">let</span> xScale = d3.scaleLinear().domain([<span class="number">0</span>, <span class="number">10</span>]).range([<span class="number">0</span>, <span class="number">300</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 坐标轴</span></span><br><span class="line"><span class="keyword">let</span> leftAxis = d3.axisLeft(xScale).ticks(<span class="number">5</span>, <span class="string">&#x27;.1f&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> leftAxis2 = d3.axisBottom(xScale).ticks(<span class="number">5</span>).tickSizeInner(<span class="number">1</span>).tickSizeOuter(<span class="number">5</span>); <span class="comment">// 内部多多头长度=1;两侧多多头长度=5</span></span><br><span class="line"><span class="keyword">let</span> rightAxis = d3.axisRight(xScale).ticks([<span class="number">5</span>], <span class="string">&#x27;.1f&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> rightAxis2 = d3.axisRight(xScale).tickValues([<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]).tickFormat(d3.format(<span class="string">&quot;$.1f&quot;</span>));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在svg中添加一个包含坐标各个元素的g元素</span></span><br><span class="line"><span class="keyword">let</span> lAxis = svg.append(<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;transform&#x27;</span>, <span class="string">`translate(80, 80)`</span>);         <span class="comment">// 平移到（80，80）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> rAxis = svg.append(<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;transform&#x27;</span>, <span class="string">`translate(100, 80)`</span>);         <span class="comment">// 平移到（80，80）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> rAxis2 = svg.append(<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;transform&#x27;</span>, <span class="string">`translate(140, 80)`</span>);         <span class="comment">// 平移到（80，80）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> lAxis2 = svg.append(<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">    .attr(<span class="string">&#x27;transform&#x27;</span>, <span class="string">`translate(180, 80)`</span>);</span><br><span class="line"></span><br><span class="line">lAxis.call(leftAxis);</span><br><span class="line">lAxis2.call(leftAxis2);</span><br><span class="line">rAxis.call(rightAxis);</span><br><span class="line">rAxis2.call(rightAxis2);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">api</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">d3.axisTop(scale)</td>
+<td align="left">为给定的刻度构造一个新的面向上的轴生成器，带空的刻度参数，刻度大小为6，填充为3。在这个方向上，刻度画在水平域路径之上。</td>
+</tr>
+<tr>
+<td align="left">d3.axisRight(scale)</td>
+<td align="left">右边轴</td>
+</tr>
+<tr>
+<td align="left">d3.axisBottom(scale)</td>
+<td align="left">底部轴</td>
+</tr>
+<tr>
+<td align="left">d3.axisLeft(scale)</td>
+<td align="left">左边周</td>
+</tr>
+<tr>
+<td align="left">axis(context)</td>
+<td align="left">将轴呈现给给定的上下文，它可以是SVG容器(SVG或G元素)的选择，也可以是相应的转换。</td>
+</tr>
+<tr>
+<td align="left">axis.ticks([count[, specifier]]) 、 axis.ticks([interval[, specifier]])</td>
+<td align="left">参数的含义取决于轴的刻度类型:最常见的是，参数是建议的刻度数(或时间刻度的时间间隔)，以及可选的格式说明符，用于自定义刻度值的格式化方式。要显式地设置滴答值，请使用axis.tickValues。要显式设置滴答格式，请使用axis.tickFormat。</td>
+</tr>
+<tr>
+<td align="left">axis.tickArguments([arguments])</td>
+<td align="left">使用方法基本上和上面是一样的。</td>
+</tr>
+<tr>
+<td align="left">axis.tickValues([values])</td>
+<td align="left">设定或者获取坐标的指定刻度</td>
+</tr>
+<tr>
+<td align="left">axis.tickFormat([format])</td>
+<td align="left">设定或者获取坐标的单位</td>
+</tr>
+<tr>
+<td align="left">axis.tickSize([size])</td>
+<td align="left">如果指定了大小，将内部和外部刻度大小设置为指定的值，并返回轴。如果没有指定大小，返回当前的内刻度大小，默认为6。</td>
+</tr>
+<tr>
+<td align="left">axis.tickSizeInner([size])</td>
+<td align="left">设定或者获取坐标轴内部度的长度。内部度指的是非两端的刻度。</td>
+</tr>
+<tr>
+<td align="left">axis.tickSizeOuter([size])</td>
+<td align="left">设定或者获取外部度。 外部度值的是两端的刻度。</td>
+</tr>
+</tbody></table>
+<p><font color="red" size="3">这里要注意===&gt; ticks是指分成几段; 设置值之后d3会根据轴最大最小值自动做整除，不能整除时取最近的被整除的数做为段数。</font></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/06/19/%E7%AC%AC%E4%BA%94-%E6%AF%94%E4%BE%8B%E5%B0%BA%E4%B8%8E%E5%9D%90%E6%A0%87%E8%BD%B4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1337,7 +1516,7 @@
               
                 <a href="/hlfblog/archives">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
