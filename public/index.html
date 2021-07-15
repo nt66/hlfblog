@@ -252,6 +252,130 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/07/15/%E7%AC%AC%E5%8D%81%E5%9B%9BD3%E4%B9%8B%E6%B0%B4%E6%B3%A2%E5%9B%BE%E7%BB%84%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hlfblog/images/avatar3.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="灵峯 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hlfblog/2021/07/15/%E7%AC%AC%E5%8D%81%E5%9B%9BD3%E4%B9%8B%E6%B0%B4%E6%B3%A2%E5%9B%BE%E7%BB%84%E4%BB%B6/" itemprop="url">第十四D3之水波图效果</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-15T15:28:36+08:00">
+                2021-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="水波图效果"><a href="#水波图效果" class="headerlink" title="水波图效果"></a>水波图效果</h2><img src="/hlfblog/2021/07/15/%E7%AC%AC%E5%8D%81%E5%9B%9BD3%E4%B9%8B%E6%B0%B4%E6%B3%A2%E5%9B%BE%E7%BB%84%E4%BB%B6/water.gif" class>
+
+<p>水波图效果即刻画水在容器中晃动引起的波浪效果。这里涉及到svg动画transition、css动画animation、svg遮罩标签mask</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> width = <span class="number">800</span>;</span><br><span class="line"><span class="keyword">const</span> height = <span class="number">800</span>;</span><br><span class="line"><span class="keyword">const</span> r = <span class="number">80</span>;</span><br><span class="line"><span class="keyword">const</span> svg = d3.select(<span class="string">&#x27;body&#x27;</span>).append(<span class="string">&#x27;svg&#x27;</span>).attr(<span class="string">&#x27;id&#x27;</span>,<span class="string">&#x27;water&#x27;</span>).attr(<span class="string">&#x27;width&#x27;</span>,width).attr(<span class="string">&#x27;height&#x27;</span>,height);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 画一个遮罩</span></span><br><span class="line"><span class="keyword">const</span> clipC = svg.append(<span class="string">&#x27;defs&#x27;</span>)</span><br><span class="line">                 .append(<span class="string">&#x27;mask&#x27;</span>)</span><br><span class="line">                 .attr(<span class="string">&#x27;id&#x27;</span>,<span class="string">&#x27;clip&#x27;</span>);</span><br><span class="line"></span><br><span class="line"> clipC.append(<span class="string">&#x27;rect&#x27;</span>).attr(<span class="string">&#x27;width&#x27;</span>,<span class="number">800</span>).attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;#fff&#x27;</span>).attr(<span class="string">&#x27;height&#x27;</span>,<span class="number">160</span>);</span><br><span class="line"> clipC.append(<span class="string">&#x27;circle&#x27;</span>).attr(<span class="string">&#x27;cx&#x27;</span>, <span class="number">290</span>).attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;#000&#x27;</span>).attr(<span class="string">&#x27;cy&#x27;</span>, <span class="number">80</span>).attr(<span class="string">&#x27;r&#x27;</span>,r);</span><br><span class="line">                 </span><br><span class="line"></span><br><span class="line"><span class="comment">// 区域生成器</span></span><br><span class="line"><span class="keyword">const</span> waveData = [<span class="number">70</span>,<span class="number">75</span>,<span class="number">100</span>,<span class="number">110</span>,<span class="number">130</span>,<span class="number">60</span>,<span class="number">50</span>,<span class="number">70</span>];</span><br><span class="line"><span class="keyword">const</span> wavePath = d3.area().x(<span class="function">(<span class="params">d,i</span>)=&gt;</span><span class="number">50</span>+i*<span class="number">80</span>).y0(<span class="function">(<span class="params">d,i</span>)=&gt;</span><span class="number">400</span>/<span class="number">2</span>).y1(<span class="function">(<span class="params">d,i</span>)=&gt;</span><span class="number">400</span>/<span class="number">2</span>-d).curve(d3.curveBasis);</span><br><span class="line"><span class="keyword">const</span> wave = svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">            <span class="comment">//.attr(&#x27;d&#x27;,wavePath(waveData))</span></span><br><span class="line">            .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;class&#x27;</span>,<span class="string">&#x27;clipPathBg&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;clip-path&#x27;</span>, <span class="string">&#x27;url(#clip)&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;transform&#x27;</span>,<span class="string">&#x27;translate(20,50)&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;d&#x27;</span>,wavePath([<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]))</span><br><span class="line">            .transition()</span><br><span class="line">            .duration(<span class="number">2000</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;d&#x27;</span>,wavePath(waveData));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> wave2 = svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">            <span class="comment">//.attr(&#x27;d&#x27;,wavePath(waveData))</span></span><br><span class="line">            .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;fill-opacity&#x27;</span>, <span class="string">&#x27;0.5&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;class&#x27;</span>,<span class="string">&#x27;clipPathBg2&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;clip-path&#x27;</span>, <span class="string">&#x27;url(#clip)&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;transform&#x27;</span>,<span class="string">&#x27;translate(20,50)&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;d&#x27;</span>,wavePath([<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]))</span><br><span class="line">            .transition()</span><br><span class="line">            .duration(<span class="number">2000</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;d&#x27;</span>,wavePath(waveData));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> wave3 = svg.append(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">            <span class="comment">//.attr(&#x27;d&#x27;,wavePath(waveData))</span></span><br><span class="line">            .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;fill-opacity&#x27;</span>, <span class="string">&#x27;0.2&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;class&#x27;</span>,<span class="string">&#x27;clipPathBg3&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;clip-path&#x27;</span>, <span class="string">&#x27;url(#clip)&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;transform&#x27;</span>,<span class="string">&#x27;translate(20,50)&#x27;</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;d&#x27;</span>,wavePath([<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]))</span><br><span class="line">            .transition()</span><br><span class="line">            .duration(<span class="number">2000</span>)</span><br><span class="line">            .attr(<span class="string">&#x27;d&#x27;</span>,wavePath(waveData));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 画背景颜色</span></span><br><span class="line"><span class="keyword">const</span> waterG = svg.append(<span class="string">&#x27;g&#x27;</span>).attr(<span class="string">&#x27;class&#x27;</span>,<span class="string">&#x27;waterG&#x27;</span>);</span><br><span class="line">waterG.append(<span class="string">&#x27;rect&#x27;</span>)</span><br><span class="line">      .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;#fff&#x27;</span>)</span><br><span class="line">      .attr(<span class="string">&#x27;width&#x27;</span>,<span class="number">800</span>)</span><br><span class="line">      .attr(<span class="string">&#x27;height&#x27;</span>,<span class="number">160</span>)</span><br><span class="line">      .attr(<span class="string">&#x27;transform&#x27;</span>,<span class="string">&#x27;translate(0,40)&#x27;</span>)</span><br><span class="line">      .attr(<span class="string">&#x27;mask&#x27;</span>, <span class="string">&#x27;url(#clip)&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 容器</span></span><br><span class="line">waterG.append(<span class="string">&#x27;circle&#x27;</span>)</span><br><span class="line">      .attr(<span class="string">&#x27;cx&#x27;</span>, <span class="number">290</span>)</span><br><span class="line">      .attr(<span class="string">&#x27;cy&#x27;</span>, <span class="number">120</span>)</span><br><span class="line">      .attr(<span class="string">&#x27;r&#x27;</span>, r)</span><br><span class="line">      .attr(<span class="string">&#x27;fill&#x27;</span>, <span class="string">&#x27;none&#x27;</span>)</span><br><span class="line">      .attr(<span class="string">&#x27;stroke&#x27;</span>, <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">      .attr(<span class="string">&#x27;stroke-width&#x27;</span>, <span class="number">3</span>)</span><br><span class="line">      .attr(<span class="string">&#x27;stroke-opacity&#x27;</span>, <span class="number">0.5</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>css 部分</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">@keyframes</span> clipPathPos &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">160px</span>, <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">165px</span>, <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@keyframes</span> clipPathPos2 &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">160px</span>, <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">165px</span>, <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@keyframes</span> clipPathPos3 &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50px</span>, <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">90px</span>, <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.clipPathBg</span> &#123;</span><br><span class="line">   <span class="attribute">animation</span>: clipPathPos <span class="number">6s</span> linear infinite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.clipPathBg2</span> &#123;</span><br><span class="line">   <span class="attribute">animation</span>: clipPathPos2 <span class="number">6s</span> linear infinite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.clipPathBg3</span> &#123;</span><br><span class="line">   <span class="attribute">animation</span>: clipPathPos3 <span class="number">6s</span> linear infinite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/07/13/%E7%AC%AC%E5%8D%81%E4%B8%89D3%E4%B9%8B%E9%A3%9E%E7%BA%BF%E6%95%88%E6%9E%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -697,13 +821,19 @@
             <h2 id="React-面试题"><a href="#React-面试题" class="headerlink" title="React 面试题"></a>React 面试题</h2><h3 id="1-React中setState函数第二个参数的作用"><a href="#1-React中setState函数第二个参数的作用" class="headerlink" title="1.React中setState函数第二个参数的作用"></a>1.React中setState函数第二个参数的作用</h3><blockquote>
 <p>答：回调函数，异步调用</p>
 </blockquote>
-<h3 id="2-React中setState如何实现同步"><a href="#2-React中setState如何实现同步" class="headerlink" title="2.React中setState如何实现同步"></a>2.React中setState如何实现同步</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一：传递一个函数</span></span><br><span class="line"><span class="built_in">this</span>.setState(<span class="function">(<span class="params">prevState, props</span>) =&gt;</span> (&#123;</span><br><span class="line">    count: prevState.count + <span class="number">1</span></span><br><span class="line">  &#125;));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二 setTimeout</span></span><br><span class="line"><span class="function"><span class="title">componentDidMout</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;<span class="attr">number</span>:<span class="number">3</span>&#125;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-React中setState如何实现同步？"><a href="#2-React中setState如何实现同步？" class="headerlink" title="2.React中setState如何实现同步？"></a>2.React中setState如何实现同步？</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一：传递一个函数</span></span><br><span class="line"><span class="built_in">this</span>.setState(<span class="function">(<span class="params">prevState, props</span>) =&gt;</span> (&#123;</span><br><span class="line">    count: prevState.count + <span class="number">1</span></span><br><span class="line">  &#125;));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二 setTimeout</span></span><br><span class="line"><span class="function"><span class="title">componentDidMout</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;<span class="attr">number</span>:<span class="number">3</span>&#125;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>原理是原生事件()可以绕过react状态机制，达到事件同步效果。</p>
+<p>原理是原生事件可以绕过react状态机制，达到事件同步效果。</p>
 </blockquote>
-<h3 id="3-React中setState经历了什么"><a href="#3-React中setState经历了什么" class="headerlink" title="3.React中setState经历了什么"></a>3.React中setState经历了什么</h3><blockquote>
-</blockquote>
+<h3 id="3-React中setState经历了什么？"><a href="#3-React中setState经历了什么？" class="headerlink" title="3.React中setState经历了什么？"></a>3.React中setState经历了什么？</h3><img src="/hlfblog/2021/06/30/react%E9%9D%A2%E8%AF%95%E9%A2%98/setState%E5%8E%9F%E7%90%86.jpeg" class>
 
+<h3 id="4-说说filber架构"><a href="#4-说说filber架构" class="headerlink" title="4.说说filber架构"></a>4.说说filber架构</h3><blockquote>
+<p>js和页面渲染线程有互斥性（或者说是阻塞），所以往往会出现js运算时间过长导致页面卡顿。因此React提出了filber（切片）的概念：把js运算左侧切片，js运行一段时间后调度器把线程控制权交给页面，页面渲染完成后再交回给js；有6个优先级标记任务的等级，原则是 willmount willreceiprops  shouldComponentUpdate willupdate 等阶段的任务是可以被打断的；剩下的didmount didupdate 是不能被打断的。</p>
+</blockquote>
+<h3 id="5-说说hooks"><a href="#5-说说hooks" class="headerlink" title="5.说说hooks"></a>5.说说hooks</h3><blockquote>
+<p>a</p>
+</blockquote>
+<h3 id="6-react18新特性"><a href="#6-react18新特性" class="headerlink" title="6.react18新特性"></a>6.react18新特性</h3><h3 id="7-react的合成事件"><a href="#7-react的合成事件" class="headerlink" title="7.react的合成事件"></a>7.react的合成事件</h3>
           
         
       
@@ -1515,178 +1645,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/06/23/svg%E4%B9%8Bpath%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/hlfblog/images/avatar3.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="灵峯 Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/hlfblog/2021/06/23/svg%E4%B9%8Bpath%E8%AF%A6%E8%A7%A3/" itemprop="url">svg之path详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-23T15:34:37+08:00">
-                2021-06-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="path"><a href="#path" class="headerlink" title=" path "></a><div id="class02-01"> path </div></h2><p>path元素是SVG基本形状中最强大的一个，它不仅能创建其他基本形状，还能创建更多其他形状。你可以用path元素绘制矩形（直角矩形或者圆角矩形）、圆形、椭圆、折线形、多边形，以及一些其他的形状，例如贝塞尔曲线、2次曲线等曲线。</p>
-<p>使用方法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;path d=<span class="string">&quot;M10 10 H 90 V 90 H 10 L 10 10&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
-<p>最难理解的就是属性d里面的命令。<br><font color="red">一般来说大写代表绝对定位，小写表相对定位 </font></p>
-<table>
-<thead>
-<tr>
-<th align="left">属性</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">M</td>
-<td align="left">move to</td>
-</tr>
-<tr>
-<td align="left">L</td>
-<td align="left">line to</td>
-</tr>
-<tr>
-<td align="left">H</td>
-<td align="left">横向画线</td>
-</tr>
-<tr>
-<td align="left">V</td>
-<td align="left">vertical 纵向画线</td>
-</tr>
-<tr>
-<td align="left">C</td>
-<td align="left">curveto 曲线</td>
-</tr>
-<tr>
-<td align="left">S</td>
-<td align="left">smooth curveto 三次贝塞尔曲线简写,可省略第一个点</td>
-</tr>
-<tr>
-<td align="left">Q</td>
-<td align="left">quadratic curveto 两次贝塞尔</td>
-</tr>
-<tr>
-<td align="left">T</td>
-<td align="left">两次贝塞尔曲线简写，可省略第一个点</td>
-</tr>
-<tr>
-<td align="left">A</td>
-<td align="left">弧线 rx（x轴半径） ry（y轴半径） x-axis-rotation（旋转角度） large-arc-flag（角度大小） sweep-flag（弧线方向） x y ,</td>
-</tr>
-<tr>
-<td align="left">Z</td>
-<td align="left">终点</td>
-</tr>
-</tbody></table>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;path d=<span class="string">&quot;M10 10 L 100 100 L 200 200 Z&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt; <span class="comment">// 画直线</span></span><br><span class="line"></span><br><span class="line">&lt;path d=<span class="string">&quot;M10 10 C 100 10, 100 200,300 200&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt; <span class="comment">// 三次贝塞尔 第一、二两个是控制点，最后一个是终点</span></span><br><span class="line"></span><br><span class="line">&lt;path d=<span class="string">&quot;M10 10 C 100 10, 100 200,300 200 S 350 200, 400 180&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt; <span class="comment">// S是三次贝塞尔简写 S前面如果是C或者S 那S的第一个控制点就是前面的第二个控制点的对称点</span></span><br><span class="line"></span><br><span class="line">&lt;path d=<span class="string">&quot;M10 10 Q 100 10, 100 200&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt; <span class="comment">// Q是二次贝塞尔</span></span><br><span class="line"></span><br><span class="line">&lt;path d=<span class="string">&quot;M10 10 Q 100 10, 100 200 T 300 200&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt; <span class="comment">// T是二次贝塞尔的简写，道理和S类似，省略了第一个控制点</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1741,7 +1699,7 @@
               
                 <a href="/hlfblog/archives">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
