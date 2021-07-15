@@ -252,6 +252,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/06/23/svg%E4%B9%8Bpath%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hlfblog/images/avatar3.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="灵峯 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hlfblog/2021/06/23/svg%E4%B9%8Bpath%E8%AF%A6%E8%A7%A3/" itemprop="url">svg之path详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-23T15:34:37+08:00">
+                2021-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="path"><a href="#path" class="headerlink" title=" path "></a><div id="class02-01"> path </div></h2><p>path元素是SVG基本形状中最强大的一个，它不仅能创建其他基本形状，还能创建更多其他形状。你可以用path元素绘制矩形（直角矩形或者圆角矩形）、圆形、椭圆、折线形、多边形，以及一些其他的形状，例如贝塞尔曲线、2次曲线等曲线。</p>
+<p>使用方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;path d=<span class="string">&quot;M10 10 H 90 V 90 H 10 L 10 10&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p>最难理解的就是属性d里面的命令。<br><font color="red">一般来说大写代表绝对定位，小写表相对定位 </font></p>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">M</td>
+<td align="left">move to</td>
+</tr>
+<tr>
+<td align="left">L</td>
+<td align="left">line to</td>
+</tr>
+<tr>
+<td align="left">H</td>
+<td align="left">横向画线</td>
+</tr>
+<tr>
+<td align="left">V</td>
+<td align="left">vertical 纵向画线</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">curveto 曲线</td>
+</tr>
+<tr>
+<td align="left">S</td>
+<td align="left">smooth curveto 三次贝塞尔曲线简写,可省略第一个点</td>
+</tr>
+<tr>
+<td align="left">Q</td>
+<td align="left">quadratic curveto 两次贝塞尔</td>
+</tr>
+<tr>
+<td align="left">T</td>
+<td align="left">两次贝塞尔曲线简写，可省略第一个点</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">弧线 rx（x轴半径） ry（y轴半径） x-axis-rotation（旋转角度） large-arc-flag（角度大小） sweep-flag（弧线方向） x y ,</td>
+</tr>
+<tr>
+<td align="left">Z</td>
+<td align="left">终点</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;path d=<span class="string">&quot;M10 10 L 100 100 L 200 200 Z&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt; <span class="comment">// 画直线</span></span><br><span class="line"></span><br><span class="line">&lt;path d=<span class="string">&quot;M10 10 C 100 10, 100 200,300 200&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt; <span class="comment">// 三次贝塞尔 第一、二两个是控制点，最后一个是终点</span></span><br><span class="line"></span><br><span class="line">&lt;path d=<span class="string">&quot;M10 10 C 100 10, 100 200,300 200 S 350 200, 400 180&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt; <span class="comment">// S是三次贝塞尔简写 S前面如果是C或者S 那S的第一个控制点就是前面的第二个控制点的对称点</span></span><br><span class="line"></span><br><span class="line">&lt;path d=<span class="string">&quot;M10 10 Q 100 10, 100 200&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt; <span class="comment">// Q是二次贝塞尔</span></span><br><span class="line"></span><br><span class="line">&lt;path d=<span class="string">&quot;M10 10 Q 100 10, 100 200 T 300 200&quot;</span> stroke=<span class="string">&quot;red&quot;</span> fill=<span class="string">&quot;transparent&quot;</span> /&gt; <span class="comment">// T是二次贝塞尔的简写，道理和S类似，省略了第一个控制点</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://nt66.github.io/hlfblog/hlfblog/2021/06/22/%E7%AC%AC%E4%B8%83-%E7%BB%98%E5%9B%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1759,7 +1931,7 @@
               
                 <a href="/hlfblog/archives">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
